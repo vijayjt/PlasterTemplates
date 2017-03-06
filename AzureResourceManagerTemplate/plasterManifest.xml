@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest
+  schemaVersion="1.0" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>ARMTemplate</name>
+    <id>78e2942f-c2d8-45c5-80cc-c9681667d328</id>
+    <version>0.1.0</version>
+    <title>ARMTemplate</title>
+    <description>Azure Resource Manager Template</description>
+    <author>Vijay Thakorlal</author>
+    <tags></tags>
+  </metadata>
+  <parameters></parameters>
+  <content>
+    <file
+      source="azuredeploy.json"
+      destination="azuredeploy.json" />
+    <file
+      source="azuredeploy.parameters.json"
+      destination="azuredeploy.parameters.json" />
+    <file
+      source="metadata.json"
+      destination="metadata.json" />
+    <file
+      source="README.md"
+      destination="README.md" />
+    <file
+      source="nestedtemplates\README.md"
+      destination="nestedtemplates\README.md" />
+    <file
+      source="scripts\README.md"
+      destination="scripts\README.md" />
+    <file
+      source="tests\azuredeploy.tests.ps1"
+      destination="tests\azuredeploy.tests.ps1" />
+    <file
+      source="tests\README.md"
+      destination="tests\README.md" />
+  </content>
+</plasterManifest>
