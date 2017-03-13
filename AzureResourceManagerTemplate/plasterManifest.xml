@@ -2,11 +2,11 @@
 <plasterManifest
   schemaVersion="1.0" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
   <metadata>
-    <name>ARMTemplate</name>
-    <id>78e2942f-c2d8-45c5-80cc-c9681667d328</id>
-    <version>0.1.0</version>
-    <title>ARMTemplate</title>
-    <description>Azure Resource Manager Template</description>
+    <name>NewARMTemplate</name>
+    <id>54699fb5-fb84-4f13-8761-472b667b609b</id>
+    <version>0.1.1</version>
+    <title>ARM Template</title>
+    <description>Azure Resource Manager Plaster Template</description>
     <author>Vijay Thakorlal</author>
     <tags></tags>
   </metadata>

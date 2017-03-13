@@ -1,4 +1,4 @@
-﻿<#
+<#
   .SYNOPSIS
     Generates the directory structure which is then used to create a Plaster manifest for a standardised ARM template scaffolding.
   .DESCRIPTION
@@ -14,13 +14,16 @@ Param(
     [String]$Path
 )
 
+$DestinationPath = Resolve-Path -Path $Path
+
 $PreviousLocation = $PWD
 Set-Location -Path $Path
 
+$Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
+
 New-Item -Name README.md -ItemType File
 
-
-@'
+$text = @'
 # Solution Name
 
 This template deploys a **solution name**. The **solution name** is a **description**
@@ -68,11 +71,14 @@ How to manage the solution
 
 Solution notes
 
-'@ | out-file -FilePath README.md
+'@
+$filename = 'README.md'
+[IO.File]::WriteAllLines("$DestinationPath\$filename", $text, $Utf8NoBomEncoding)
 
 
 New-Item -Name azuredeploy.json -ItemType File
-@'
+
+$text = @'
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
@@ -85,20 +91,25 @@ New-Item -Name azuredeploy.json -ItemType File
   "outputs": {
   }
 }
-'@ | Out-File azuredeploy.json 
+'@
+$filename = 'azuredeploy.json'
+[IO.File]::WriteAllLines("$DestinationPath\$filename", $text, $Utf8NoBomEncoding)
+
 
 New-Item -Name azuredeploy.parameters.json -ItemType File
-@'
+$text = @'
 {
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
   }
 }
-'@ | Out-File azuredeploy.parameters.json
+'@
+$filename = 'azuredeploy.parameters.json'
+[IO.File]::WriteAllLines("$DestinationPath\$filename", $text, $Utf8NoBomEncoding)
 
 New-Item -Name metadata.json -ItemType File
-@'
+$text = @'
 {
   "itemDisplayName": "Blank Template",
   "description": "A blank template and empty parameters file.",
@@ -106,7 +117,9 @@ New-Item -Name metadata.json -ItemType File
   "githubUsername": "jbloggs",
   "dateUpdated": "2016-09-28"
 }
-'@ | Out-File metadata.json
+'@ 
+$filename = 'metadata.json'
+[IO.File]::WriteAllLines("$DestinationPath\$filename", $text, $Utf8NoBomEncoding)
 
 New-Item -Name nestedtemplates -ItemType Directory
 New-Item -Path nestedtemplates -Name README.md -ItemType File -Value '# Nested Templates'
@@ -119,7 +132,7 @@ New-Item -Path tests -Name azuredeploy.tests.ps1 -ItemType File
 New-Item -Path tests -Name README.md -ItemType File -Value '# Tests'
 
 
-@'
+$text = @'
 #Requires -Modules Pester
 <#
 .SYNOPSIS
@@ -262,8 +275,8 @@ Describe "Template: $template" -Tags Unit {
 
     }
 }
-'@ | Out-File tests\azuredeploy.tests.ps1
-
-
+'@ 
+$filename = 'tests\azuredeploy.tests.ps1'
+[IO.File]::WriteAllLines("$DestinationPath\$filename", $text, $Utf8NoBomEncoding)
 
 Set-Location -Path $PreviousLocation
